@@ -30,8 +30,13 @@
             </div>  
           <% end %>
         </ul>
+          <li>
+            <% if user_signed_in? && current_user.has_role?(:seller) %>
+              <%= link_to 'Totoa Revenue', total_revenue_option_path, :class => 'btn btn-secondary mr-2'%>
+            <% end %>
+          </li>
           <li class="navbar-text float-right">
-            <% if user_signed_in? %>
+            <% if user_signed_in?  %>
             <%= link_to "#{current_user.latest_order.line_items.size} cart", carts_path , :class => "button btn btn-secondary mr-2 " %>
             <strong><%= current_user.name %></strong><%= image_tag current_user.image,size: "30x30", :class => 'ml-2'  %>
             <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link btn btn-primary ml-2'%> |
