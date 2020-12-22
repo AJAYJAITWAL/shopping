@@ -10,6 +10,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
   after_create :assign_default_role
   has_many :orders, dependent: :destroy
+  has_many :products, dependent: :destroy
   
   def assign_default_role
     self.add_role(:buyer) if self.roles.blank?
@@ -24,7 +25,7 @@ class User < ApplicationRecord
       orders.create(status:0)
     end
     
-   #  def add_order
-   #   self.orders.create!(total_price: 0, total_quantity: 0)
-   # end
+    def add_order
+     self.orders.create!(total_price: 0, total_quantity: 0)
+   end
 end
