@@ -19,6 +19,11 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def total_revenue
+    @total_price_revenue = Order.joins(line_items: :product).where("products.user_id = ? ", current_user.id).sum("products.price*quantity")
+    @total_quantity_revenue = Order.joins(line_items: :product).where("products.user_id = ? ", current_user.id).sum("line_items.quantity")
+  end
+
 
   private
     def order_params
